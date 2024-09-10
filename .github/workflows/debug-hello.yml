@@ -1,0 +1,42 @@
+name: Debug Hello
+
+on:
+  workflow_call:
+    inputs:
+      arch_type:
+        description: 'Type of arch to build for'
+        required: true
+        type: string
+
+permissions:
+  id-token: read
+  contents: read
+  checks: read
+
+jobs:
+  first:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ github.head_ref }}
+    - name: Debug First Message
+      run: |
+        echo hello first
+        echo arch=${{ inputs.arch_type }}
+        echo commit_sha=${{ github.sha }}
+
+  second:
+    runs-on: ubuntu-latest
+    needs: [first]
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ github.head_ref }}
+    - name: Debug Second Message
+      run: |
+        echo hello second
+        echo arch=${{ inputs.arch_type }}
+        echo commit_sha=${{ github.sha }}
