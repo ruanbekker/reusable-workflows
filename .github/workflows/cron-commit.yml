@@ -1,0 +1,34 @@
+name: Update Random Value
+
+on:
+  schedule:
+    # Runs every 10 minutes
+    - cron: '*/10 * * * *'
+
+jobs:
+  update-file:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Generate a random value
+      id: random
+      run: echo "RANDOM_VALUE=$((RANDOM))" >> $GITHUB_ENV
+
+    - name: Replace value in commits.md
+      run: |
+        # Replace the existing value with the new random value
+        sed -i "s/^Random value: .*$/Random value: ${{ env.RANDOM_VALUE }}/" commits.md
+
+    - name: Commit changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+      run: |
+        git config --global user.name "Ruan Bekker"
+        git config --global user.email "ruan.ru.bekker@gmail.com"
+        git add commits.md
+        git commit -m ":fire: updated random value: ${{ env.RANDOM_VALUE }}"
+        git push https://ruanbekker:${{ secrets.PAT_TOKEN }}@github.com/ruanbekker/reusable-workflows.git HEAD:main
+
