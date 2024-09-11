@@ -23,8 +23,6 @@ jobs:
         sed -i "s/^Random value: .*$/Random value: ${{ env.RANDOM_VALUE }}/" commits.md
 
     - name: Commit changes
-      env:
-        GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
       run: |
         git config --global user.name "Ruan Bekker"
         git config --global user.email "ruan.ru.bekker@gmail.com"
