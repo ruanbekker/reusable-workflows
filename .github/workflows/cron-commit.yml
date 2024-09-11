@@ -3,7 +3,7 @@ name: Update Random Value
 on:
   schedule:
     # Runs every 10 minutes
-    - cron: '*/10 * * * *'
+    - cron: '*/1 * * * *'
 
 jobs:
   update-file:
@@ -27,7 +27,7 @@ jobs:
       with:
         author_name: Ruan Bekker
         author_email: ruanbekker@noreply.github.com
-        message: ':fire: updated random value: ${{ env.RANDOM_VALUE }}'
+        message: ':rocket: updated random value: ${{ env.RANDOM_VALUE }}'
         add: 'commits.md'
 
     # - name: Commit changes
