@@ -1,0 +1,36 @@
+name: Another Random Value
+
+on:
+  schedule:
+    # Runs every 5 minutes
+    - cron: '*/5 * * * *'
+
+jobs:
+  update-file:
+    runs-on: ubuntu-latest
+
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Generate a random value
+      id: random
+      run: echo "RANDOM_VALUE=$((RANDOM))" >> $GITHUB_ENV
+
+    - name: Replace value in commits.md
+      run: |
+        # Replace the existing value with the new random value
+        sed -i "s/^Random value: .*$/Random value: ${{ env.RANDOM_VALUE }}/" commits.md
+    
+    - name: Commit changes
+      uses: EndBug/add-and-commit@v9
+      with:
+        author_name: Ruan Bekker
+        author_email: ruanbekker@noreply.github.com
+        message: ':rocket: updated random value: ${{ env.RANDOM_VALUE }}'
+        add: 'commits.md'
