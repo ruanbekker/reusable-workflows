@@ -31,6 +31,8 @@ jobs:
       uses: EndBug/add-and-commit@v9
       with:
         author_name: Ruan Bekker
-        author_email: ruanbekker@noreply.github.com
+        author_email: ruan.ru.bekker@gmail.com
+        committer_name: Ruan Bekker
+        committer_email: ruan.ru.bekker@gmail.com
         message: ':rocket: updated random value: ${{ env.RANDOM_VALUE }}'
         add: 'commits.md'
