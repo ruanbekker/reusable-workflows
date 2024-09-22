@@ -3,7 +3,7 @@ name: Update Random Value
 on:
   schedule:
     # Runs every 37 minutes
-    - cron: '*/37 * * * *'
+    - cron: '0 23 * * *'
 
 jobs:
   update-file:
