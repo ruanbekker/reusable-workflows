@@ -1,9 +1,14 @@
 name: Update Random Value
 
+# on:
+#   schedule:
+#     # Runs every 37 minutes
+#     - cron: '*/37 * * * *'
+
 on:
-  schedule:
-    # Runs every 37 minutes
-    - cron: '0 23 * * *'
+  push:
+    branches:
+      - main
 
 jobs:
   update-file:
